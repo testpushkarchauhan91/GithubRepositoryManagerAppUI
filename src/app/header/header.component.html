@@ -1,0 +1,45 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <app-logo></app-logo>
+        <div>
+            <a href="https://www.github.com" class="navbar-brand">Github Repository Manager</a>
+        </div>
+        <ul class="navbar-nav">
+            <li>
+                <a *ngIf="service.isUserLoggedIn()" routerLink="/dashboard/pushkar" class="nav-link">Home</a>
+            </li>
+            <!-- <li>
+                <a *ngIf="service.isUserLoggedIn()" routerLink="/todos" class="nav-link">Todos</a>
+            </li> -->
+        </ul>
+
+        <!-- <app-search></app-search> -->
+
+        <ul class="navbar-nav navbar-collapse justify-content-end">
+            <li>
+                <a routerLink="/aboutus" class="nav-link">About Us</a>
+            </li>
+            <li>
+                <a routerLink="/contactus" class="nav-link">Contact Us</a>
+            </li>
+            <li>
+                <a *ngIf="!service.isUserLoggedIn()" routerLink="/searchResult" class="nav-link">Search</a>
+            </li>
+            <li>
+                <a *ngIf="!service.isUserLoggedIn()" routerLink="/searchResultTopTen" class="nav-link">Trending</a>
+            </li>
+            <li>
+                <a *ngIf="service.isUserLoggedIn()" routerLink="/favourite/pushkar" class="nav-link">Favourite</a>
+            </li>
+            <li>
+                <a *ngIf="!service.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a>
+            </li>
+            <li>
+                <a *ngIf="!service.isUserLoggedIn()" routerLink="/register" class="nav-link">Register</a>
+            </li>
+            <li>
+                <a *ngIf="service.isUserLoggedIn()" routerLink="/logout" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</header>

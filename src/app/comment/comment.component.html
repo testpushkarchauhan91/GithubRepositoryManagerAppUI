@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="alert alert-success" *ngIf="message">{{message}}</div>
+    <div class="alert alert-warning" *ngIf="invalidLogin">{{errorMessage}}</div>
+    <div>
+        <table align="center">
+            <tr>
+                <td>
+                    <h1> Add Comment</h1>
+                </td>
+            </tr>
+        </table>
+        <form #commentForm1="ngForm" (ngSubmit)="postComment(commentForm1.value)">
+            <table align="center">
+                <tr>
+                    <td>Id</td>
+                    <td> {{favourite_items_id}}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{favourite_items_name}}</td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td>{{favourite_items_html_url}}</td>
+                </tr>
+                <tr>
+                    <td>Comments</td>
+                    <td><textarea type="text" name="comment_value" ngModel></textarea></td>
+                </tr>
+                <tr>
+                    <td> <input type="submit" class="btn btn-success"></td>
+                    <td> <input type="reset" class="btn btn-danger" value="Reset">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <table align="center" *ngIf="showUpdateCommentTable==true">
+            <tr>
+                <td>
+                    <h1>Update Comment</h1>
+                </td>
+            </tr>
+        </table>
+        <form #commentForm2="ngForm" (ngSubmit)="updateComment2(commentForm2.value)" *ngIf="showUpdateCommentTable==true">
+            <table align="center">
+                <tr>
+                    <td>Favourite ID</td>
+                    <td> {{favourite_items_id}}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{favourite_items_name}}</td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td>{{favourite_items_html_url}}</td>
+                </tr>
+                <tr>
+                    <td>Comments</td>
+                    <td><textarea type="text" name="comment_value" id="comment_value" [(ngModel)]="comment_value"></textarea></td>
+                </tr>
+                <tr>
+                    <td> <input type="submit" class="btn btn-success"></td>
+                    <td> <input type="reset" class="btn btn-danger" value="Reset">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <p>Welcome {{username}}</p>
+    <div class="alert alert-success" *ngIf="message">{{message}}</div>
+    <div class="container">
+        <form #commentForm="ngForm" (ngSubmit)="getAllCommentsForId()">
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="submit" class="btn btn-success" value="Click Here to get all Comments"></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+        <br/>
+        <h1 *ngIf="displayComments==true">Comments for {{favourite_items_name}} are displayed below: </h1>
+        <table class="table" *ngIf="displayComments==true">
+            <caption>Comments</caption>
+            <thead>
+                <tr>
+                    <th>Comment ID</th>
+                    <th>Comment Value</th>
+                    <th>HTML Url</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comment of comments| sort:'comment_id' | slice:startIndex:endIndex ">
+                    <td>{{comment.id}}</td>
+                    <td>{{comment.comment_value}}</td>
+                    <td>{{comment.favourite_items_html_url}}</td>
+                    <td>{{comment.favourite_items_id}}</td>
+                    <td>{{comment.favourite_items_name}}</td>
+                    <td>
+                        <button (click)="updateComment1(comment.id,comment.comment_value)" class="btn btn-success">Update Comment</button>
+                    </td>
+                    <td>
+                        <button (click)="deleteComment(comment.id)" class="btn btn-danger">Delete Comment</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example" *ngIf="displayComments==true">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li *ngFor="let config of getArrayFromNumber(comments.length); let in = index" class="page-item">
+                    <a class="page-link" (click)="updateIndex(in)">
+                  {{in+1}}
+              </a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>

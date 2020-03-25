@@ -1,0 +1,131 @@
+<h1>
+    Search Page</h1>
+<div class="alert alert-success" *ngIf="showMessage">{{message}}</div>
+<div class="alert alert-warning" *ngIf="invalidSearch">{{errorMessage}}</div>
+<div class="container">
+    <form #personForm="ngForm" (ngSubmit)="onSubmit(personForm.value)">
+        <div>
+            <table>
+                <tr>
+                    <td> <label>First Name</label></td>
+                    <td><input type="text" name="searchData" ngModel></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="btn btn-success"></td>
+                    <td> <input type="reset" value="Clear" class="btn btn-danger"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <!-- <form #refreshForm="ngForm" (ngSubmit)="refreshData()">
+        <div>
+            <div>
+                <input type="submit" value="Refresh Search Display">
+            </div>
+        </div>
+    </form> -->
+    <br/>
+    <h1 *ngIf="displaySearch==true">Search Results are displayed below: </h1>
+    <table class="table" *ngIf="displaySearch==true">
+        <caption>Top 10 Repos</caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>HTML Url</th>
+                <th>Favourites</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let config of configurations2 | slice:startIndex:endIndex">
+                <td>{{config.items_id}}</td>
+                <td>{{config.items_name}}</td>
+                <td>{{config.items_html_url}}</td>
+                <td>
+                    <button class="btn btn-danger" (click)="postFavourite(config.items_id,config.items_name,config.items_html_url)">Add to Favourites</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example" *ngIf="displaySearch==true">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li *ngFor="let config of getArrayFromNumber(configurations2.length); let in = index" class="page-item">
+                <a class="page-link" (click)="updateIndex(in)">
+                {{in+1}}
+            </a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- <pre>
+    {{configurations2 | json}}
+</pre>  -->
+
+<!-- <h1>Github Top 10 Repository Details</h1>
+<div class="container">
+    <table class="table">
+        <caption>Top 10 Repos</caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th>Favourites</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let config of configurations | slice:startIndex:endIndex">
+                <td>{{config.items_id}}</td>
+                <td>{{config.items_name}}</td>
+                <td>{{config.items_html_url}}</td>
+                <td>
+                    <button (click)=" updateTodo(todo.id) " class="btn btn-success ">Update</button>
+                </td>
+                <td>
+                    <button (click)="deleteTodo(todo.id) " class="btn btn-warning ">Delete</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger ">Add to Favourites</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li *ngFor="let config of getArrayFromNumber(configurations.length); let in = index" class="page-item">
+                <a class="page-link" (click)="updateIndex(in)">
+                {{in+1}}
+            </a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div> -->

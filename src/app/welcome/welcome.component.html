@@ -1,0 +1,29 @@
+<h1>Welcome Component</h1>
+
+<br/>
+
+<div>
+    Welcome {{name}}. <br/> <br/>You can manage your todos here
+    <a routerLink="/todos">View Todos</a>
+</div>
+
+<br/>
+
+<div>
+    Click here to get a customized welcome message
+    <button (click)="getWelcomeMessage()" class="btn btn-success">Get Welcome Message</button>
+</div>
+
+<br/>
+
+<div>
+    Click here to get a customized welcome message
+    <button (click)="getWelcomeMessageWithParameter()" class="btn btn-success">Get Welcome Message With Parameter</button>
+</div>
+
+<br/>
+
+<div *ngIf="welcomeMessageFromWelcomeComponent">
+    <h2>Your Customized Welcome Message From WelcomeMessageFromWelcomeComponent</h2>
+    <br> {{welcomeMessageFromWelcomeComponent}}
+</div>

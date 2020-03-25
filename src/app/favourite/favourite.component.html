@@ -1,0 +1,73 @@
+<h1>Favourite Page</h1>
+<p>Welcome {{username}}</p>
+<p>{{token}}</p>
+<div class="alert alert-success" *ngIf="message">{{message}}</div>
+<div class="container">
+    <form #favouriteForm="ngForm" (ngSubmit)="getAllFavourites(favouriteForm.value)">
+        <div>
+            <table>
+                <tr>
+                    <td><input type="submit" class="btn btn-success" value="Click Here to get all Favourites"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <br/>
+    <h1 *ngIf="displaySearch==true">Favourite Repos are displayed below: </h1>
+    <table class="table" *ngIf="displaySearch==true">
+        <caption>Favourite Repos</caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>HTML Url</th>
+                <th>Comments</th>
+                <th>Favourites</th>
+                <th>View Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let favourite of favourites | sort:'favourite_items_name' | slice:startIndex:endIndex ">
+                <td>{{favourite.getId()}}</td>
+                <td>{{favourite.getFavouriteItemsName()}}</td>
+                <td>{{favourite.getFavouriteItemsHtmlUrl()}}</td>
+                <td>
+                    <button (click)="addComments(favourite.id,favourite.favourite_items_name,favourite.favourite_items_html_url)" class="btn btn-success">Add Comments</button>
+                </td>
+                <td>
+                    <button (click)="deleteFavourite(favourite.id, favourite.favourite_items_name)" class="btn btn-danger">Delete Favourites</button>
+                </td>
+                <td>
+                    <button (click)="getAllCommentsForId(favourite.id,favourite.favourite_items_name,favourite.favourite_items_html_url)" class="btn btn-warning">Get All Comments</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example" *ngIf="displaySearch==true">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li *ngFor="let config of getArrayFromNumber(favourites.length); let in = index" class="page-item">
+                <a class="page-link" (click)="updateIndex(in)">
+              {{in+1}}
+          </a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<!-- <pre>
+  {{configurations2 | json}}
+</pre>  -->
